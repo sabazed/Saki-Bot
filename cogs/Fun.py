@@ -142,7 +142,7 @@ class Fun(commands.Cog):
         for bomb in bombs:
             x = bomb[0]
             y = bomb[1]
-            board[x].insert(y, ':bomb:')
+            board[x].insert(y, ':boom:')
             del board[x][y + 1]  # delete existing 0
 
         final = ''
