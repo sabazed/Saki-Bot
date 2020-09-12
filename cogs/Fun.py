@@ -187,20 +187,20 @@ class Fun(commands.Cog):
             if gaynum >= 75:
                 if gaynum == 100:
                     message = str(
-                        f'You are {gaynum}% total PIDORination. :XD:')
+                        f'You are {gaynum}% total PIDORination. :rainbow:')
                 else:
                     message = str(
-                        f'You are {gaynum}% gay! PIDOOR :reborn:')
+                        f'You are {gaynum}% gay! PIDOOR :eggplant:')
             else:
                 message = str(f'You are {gaynum}% gay.')
         else:
             if gaynum >= 75:
                 if gaynum == 100:
                     message = str(
-                        f'{member.mention} is {gaynum}% total PIDORination. :XD:')
+                        f'{member.mention} is {gaynum}% total PIDORination. :rainbow:')
                 else:
                     message = str(
-                        f'{member.mention} is {gaynum}% gay! PIDOOR :reborn:')
+                        f'{member.mention} is {gaynum}% gay! PIDOOR :eggplant:')
             else:
                 message = str(f'{member.mention} is {gaynum}% gay.')
         await ctx.send(message)
@@ -211,25 +211,25 @@ class Fun(commands.Cog):
 
     @commands.command(aliases=['simp', 'howsimp', 'srate'])  # SIMP RATE
     async def simprate(self, ctx, member: discord.Member = None):
-        simpnum = random.randint(0, 20)
+        simpnum = random.randint(0, 100)
         if member == None:
             if simpnum >= 75:
                 if simpnum == 100:
                     message = str(
-                        f'You are {simpnum}% complete S.I.M.P. :facepalm:')
+                        f'You are {simpnum}% complete :regional_indicator_s: :regional_indicator_i: :regional_indicator_m: :regional_indicator_p: ')
                 else:
                     message = str(
-                        f'You are {simpnum}% simp! :suicide:')
+                        f'You are {simpnum}% simp! :sweat_drops:')
             else:
                 message = str(f'You are {simpnum}% simp.')
         else:
             if simpnum >= 75:
                 if simpnum == 100:
                     message = str(
-                        f'{member.mention} is {simpnum}% complete S.I.M.P. :facepalm:')
+                        f'{member.mention} is {simpnum}% an ultimate :regional_indicator_s: :regional_indicator_i: :regional_indicator_m: :regional_indicator_p:')
                 else:
                     message = str(
-                        f'{member.mention} is {simpnum}% simp! :suicide:')
+                        f'{member.mention} is {simpnum}% simp! :sweat_drops:')
             else:
                 message = str(f'{member.mention} is {simpnum}% simp.')
         await ctx.send(message)
