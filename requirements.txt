@@ -1,1 +1,1 @@
--U discord.py
+discord
