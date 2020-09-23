@@ -9,6 +9,7 @@ class Fun(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+######################################################################
     @commands.command()  # ROCK PAPER SCISSORS
     async def rps(self, ctx):
         comp = random.randint(1, 3)
@@ -53,7 +54,7 @@ class Fun(commands.Cog):
     @rps.error
     async def rpserror(self, ctx, error):
         await ctx.send('Game Over.')
-
+######################################################################
     @commands.command(aliases=['random'])  # RANDOM NUMBER
     async def random_num(self, ctx, start=0, end=1):
         maxn = int(max(start, end))
@@ -63,7 +64,7 @@ class Fun(commands.Cog):
     @random_num.error
     async def rndnumerr(self, ctx, error):
         await ctx.send('You should specify two valid numbers.')
-
+######################################################################
     @commands.command()  # MINESWEEPER
     async def mine(self, ctx, size=8):
         if size < 6 or size > 14:
@@ -72,7 +73,7 @@ class Fun(commands.Cog):
         board = []
         for i in range(n):
             list1 = []
-            for i in range(n):
+            for _ in range(n):
                 list1.append(0)
             board.append(list1)
 
@@ -179,7 +180,7 @@ class Fun(commands.Cog):
             await ctx.send('Please specify a valid number!')
         if isinstance(error, commands.CommandInvokeError):
             await ctx.send('Please specify a number between 6 and 14.')
-
+######################################################################
     @commands.command(aliases=['gay', 'howgay', 'grate'])  # GAY RATE
     async def gayrate(self, ctx, member: discord.Member = None):
         gaynum = random.randint(0, 100)
@@ -208,7 +209,7 @@ class Fun(commands.Cog):
     @gayrate.error
     async def gayerror(self, ctx, error):
         await ctx.send('Wrong member.')
-
+######################################################################
     @commands.command(aliases=['simp', 'howsimp', 'srate'])  # SIMP RATE
     async def simprate(self, ctx, member: discord.Member = None):
         simpnum = random.randint(0, 100)
@@ -237,7 +238,7 @@ class Fun(commands.Cog):
     @simprate.error
     async def simperror(self, ctx, error):
         await ctx.send('Wrong member.')
-
+######################################################################
     @commands.command(aliases=['dicksize', 'dick'])  # DICK SIZE
     async def dsize(self, ctx, member: discord.Member = None):
         size = random.randint(0, 20)
@@ -260,7 +261,185 @@ class Fun(commands.Cog):
     @dsize.error
     async def dsizerror(self, ctx, error):
         await ctx.send('Wrong member.')
+######################################################################
+    @commands.command(aliases=['tictactoe'])
+    async def ttt(self, ctx, member: discord.Member = None):
 
+        if member == None:
+            await ctx.send('You should choose another player for this challenge!')
+            return
+
+        elif (member == ctx.author) or (member.bot == 1):
+            await ctx.send('You should choose another player for this challenge!')
+            return
+
+        board = []
+        for i in range(3):
+            list1 = []
+            for _ in range(3):
+                list1.append(0)
+            board.append(list1)
+        taken = set()
+        player = 1
+        game = 0
+    
+        tmp = ''
+        for r in board: #print board
+            for c in r:
+                if c == 0:
+                    c = ':white_square_button:'
+                elif c == 1:
+                    c = ':x:'
+                else:
+                    c = ':o:'
+                tmp += ''.join(c)
+            tmp += ''.join('\n')
+
+        await ctx.send(f'{ctx.author.mention} has started Tic Tac Toe game against {member.mention}!')
+        brd = await ctx.send(tmp)
+        message = await ctx.send(f'{ctx.author.display_name}\'s move. Enter a block number [1-9]: ')
+
+        while (game == 0) and ((0 in board[0]) or (0 in board[1]) or (0 in board[2])):
+
+            final = ''
+            for r in board: #print board
+                for c in r:
+                    if c == 0:
+                        c = ':white_square_button:'
+                    elif c == 1:
+                        c = ':x:'
+                    else:
+                        c = ':o:'
+                    final += ''.join(c)
+                final += ''.join('\n')
+
+            if player%2==1:
+                playerdisc = ctx.author
+            else:
+                playerdisc = member
+            
+            await message.edit(content=f'{playerdisc.display_name}\'s move. Enter a block number [1-9]: ')
+            
+            if player == 8:
+                await message.edit(content='It\'s a tie!')
+                game += 1
+                await ctx.send('Game Over. :flag_white:')
+                return
+
+
+            wrongvalueresponse = f"Wrong value... Try again {playerdisc.display_name}"
+            takenslotresponse = f'That slot is already used. Try again {playerdisc.display_name}'
+
+            one = board[0][0]
+            two = board[0][1]
+            three = board[0][2]
+            four = board[1][0]
+            five = board[1][1]
+            six = board[1][2]
+            seven = board[2][0]
+            eight = board[2][1]
+            nine = board[2][2]
+            first = [one, two, three]
+            second = [four, five, six]
+            third = [seven, eight, nine]
+            fourth = [one, four, seven]
+            fifth = [two, five, eight]
+            sixth = [three, six, nine]
+            seventh = [one, five, nine]
+            eighth = [three, five, seven]
+            combs = [first, second, third, fourth, fifth, sixth, seventh, eighth]
+            plays = [[1, 1, 1], [2, 2, 2]]
+
+            await brd.edit(content=final)
+
+            for comb in combs:
+                for play in plays:
+                    if play == comb:
+                        if 1 in play:
+                            await ctx.send(f'Congratulations! :partying_face: {ctx.author.mention} won!')
+                            game += 1
+                            return
+                        else:
+                            await ctx.send(f'{member.mention} won!')
+                            game += 1
+                            return
+                    else:
+                        pass
+            if game == 1:
+                await ctx.send('Game Over')
+                return
+
+            if player%2==1:
+                move = await self.client.wait_for('message', check=lambda message: message.author == ctx.author, timeout=10)
+            else:
+                move = await self.client.wait_for('message', check=lambda message: message.author == member, timeout=10)
+            move = int(move.content)
+            if not move in [1,2,3,4,5,6,7,8,9]:
+                await message.edit(content=wrongvalueresponse)
+                await ctx.channel.purge(limit=1)
+                pass
+            else:
+                await ctx.channel.purge(limit=1)
+                if move in taken:
+                    player -= 1
+                    await message.edit(content=takenslotresponse)
+                    pass
+                else:
+                    taken.add(move)
+                    if player % 2 == 1:
+                        if move == 1:
+                            board[0][0] += 1
+                        elif move == 2:
+                            board[0][1] += 1
+                        elif move == 3:
+                            board[0][2] += 1
+                        elif move == 4:
+                            board[1][0] += 1
+                        elif move == 5:
+                            board[1][1] += 1
+                        elif move == 6:
+                            board[1][2] += 1
+                        elif move == 7:
+                            board[2][0] += 1
+                        elif move == 8:
+                            board[2][1] += 1
+                        elif move == 9:
+                            board[2][2] += 1
+                        else:
+                            player -= 1
+                            await message.edit(content=wrongvalueresponse)
+                            pass
+                    else:
+                        if move == 1:
+                            board[0][0] += 2
+                        elif move == 2:
+                            board[0][1] += 2
+                        elif move == 3:
+                            board[0][2] += 2
+                        elif move == 4:
+                            board[1][0] += 2
+                        elif move == 5:
+                            board[1][1] += 2
+                        elif move == 6:
+                            board[1][2] += 2
+                        elif move == 7:
+                            board[2][0] += 2
+                        elif move == 8:
+                            board[2][1] += 2
+                        elif move == 9:
+                            board[2][2] += 2
+                        else:
+                            await message.edit(content=wrongvalueresponse)
+                            player -= 1
+                            pass
+            player += 1
+
+    @ttt.error
+    async def ttt_error(self, ctx, error):
+        if isinstance(error, ValueError):
+            await ctx.send('Wrong response, game over.')
+        if isinstance(error, TimeoutError):
+            await ctx.send('Time is over! Game Over.')
 
 def setup(client):
     client.add_cog(Fun(client))
