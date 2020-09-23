@@ -7,12 +7,12 @@ class Admin(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
-        if ctx.message.author.guild_permissions.value == 2147483647:
-            await ctx.send('Invalid Argument(s)')
-        else:
-            pass
+#     @commands.Cog.listener()
+#     async def on_command_error(self, ctx, error):
+#         if ctx.message.author.guild_permissions.value == 2147483647:
+#             await ctx.send('Invalid Argument(s)')
+#         else:
+#             pass
 
     @commands.command()
     @commands.has_permissions(administrator=True)
