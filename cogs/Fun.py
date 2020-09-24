@@ -363,7 +363,7 @@ class Fun(commands.Cog):
                 await ctx.send('Game Over')
                 return
 
-            f player == 8: # after 8 moves, if there is no winner, it's a tie.
+            if player == 8: # after 8 moves, if there is no winner, it's a tie.
                 await message.edit(content='It\'s a tie!')
                 game += 1
                 await ctx.send('Game Over. :flag_white:')
