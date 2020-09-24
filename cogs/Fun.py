@@ -29,15 +29,15 @@ class Fun(commands.Cog):
             return
         timer = 0
         while usr == 0:
-            time.sleep(3)
+            await asyncio.sleep(3)
             timer += 3
             if timer > 10:
                 await ctx.send('Game Over.')
                 return
         await ctx.send('You chose **{}**.\n'.format(figures[usr]))
-        time.sleep(1.5)
+        await asyncio.sleep(1.5)
         await ctx.send("I chose **{}**!\n".format(figures[comp]))
-        time.sleep(1)
+        await asyncio.sleep(1)
         if comp == usr:
             await ctx.send("It's a **tie!** :necktie: :clown:")
         elif abs(comp - usr) == 1:
@@ -273,7 +273,7 @@ class Fun(commands.Cog):
             await ctx.send('You should choose another player for this challenge!')
             return
 
-        board = []
+        board = [] #create board
         for i in range(3):
             list1 = []
             for _ in range(3):
@@ -284,7 +284,7 @@ class Fun(commands.Cog):
         game = 0
     
         tmp = ''
-        for r in board: #print board
+        for r in board: #print empty board
             for c in r:
                 if c == 0:
                     c = ':white_square_button:'
@@ -302,7 +302,7 @@ class Fun(commands.Cog):
         while (game == 0) and ((0 in board[0]) or (0 in board[1]) or (0 in board[2])):
 
             final = ''
-            for r in board: #print board
+            for r in board: #update board content
                 for c in r:
                     if c == 0:
                         c = ':white_square_button:'
@@ -319,12 +319,6 @@ class Fun(commands.Cog):
                 playerdisc = member
             
             await message.edit(content=f'{playerdisc.display_name}\'s move. Enter a block number [1-9]: ')
-            
-            if player == 8:
-                await message.edit(content='It\'s a tie!')
-                game += 1
-                await ctx.send('Game Over. :flag_white:')
-                return
 
 
             wrongvalueresponse = f"Wrong value... Try again {playerdisc.display_name}"
@@ -347,15 +341,15 @@ class Fun(commands.Cog):
             sixth = [three, six, nine]
             seventh = [one, five, nine]
             eighth = [three, five, seven]
-            combs = [first, second, third, fourth, fifth, sixth, seventh, eighth]
-            plays = [[1, 1, 1], [2, 2, 2]]
+            combs = [first, second, third, fourth, fifth, sixth, seventh, eighth] #combinations to win
+            plays = [[1, 1, 1], [2, 2, 2]] # 1=X 2=O
 
             await brd.edit(content=final)
 
             for comb in combs:
                 for play in plays:
                     if play == comb:
-                        if 1 in play:
+                        if 1 in play: # check if a combination matches the winning 3 figures
                             await ctx.send(f'Congratulations! :partying_face: {ctx.author.mention} won!')
                             game += 1
                             return
@@ -369,12 +363,18 @@ class Fun(commands.Cog):
                 await ctx.send('Game Over')
                 return
 
+            f player == 8: # after 8 moves, if there is no winner, it's a tie.
+                await message.edit(content='It\'s a tie!')
+                game += 1
+                await ctx.send('Game Over. :flag_white:')
+                return
+
             if player%2==1:
                 move = await self.client.wait_for('message', check=lambda message: message.author == ctx.author, timeout=10)
             else:
                 move = await self.client.wait_for('message', check=lambda message: message.author == member, timeout=10)
             move = int(move.content)
-            if not move in [1,2,3,4,5,6,7,8,9]:
+            if not move in [1,2,3,4,5,6,7,8,9]: 
                 await message.edit(content=wrongvalueresponse)
                 await ctx.channel.purge(limit=1)
                 pass
