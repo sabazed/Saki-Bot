@@ -34,7 +34,7 @@ async def unload(ctx, extension):
 async def help(ctx):
     embed = discord.Embed(
         title='**SakiMeister Help Board**',
-        description='**User Commands:**\ns/mine [size] - generates a minesweeper board, default size 8x8\ns/rps - Play \'Rock Paper Scissors\' against the bot\ns/random [X][Y] - Generate a random number between X and Y\n s/gayrate [member] - Rates how much gay the user is\ns/simprate [member] - Rates how much simp the user is\ns/dicksize [member] - Measures the dick size of the user\ns/ttt [member] - Tic Tac Toe game against a member'
+        description='**User Commands:**\ns/mine [size] - generates a minesweeper board, default size 8x8\ns/rps - Play \'Rock Paper Scissors\' against the bot\ns/random [X][Y] - Generate a random number between X and Y\n s/gayrate [member] - Rates how much gay the user is\ns/simprate [member] - Rates how much simp the user is\ns/dicksize [member] - Measures the dick size of the user\ns/ttt [member] - Tic Tac Toe game against a member\ns/ff - Generates a random fact'
     )
     await ctx.send(embed=embed)
 
