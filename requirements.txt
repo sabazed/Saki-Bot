@@ -1,3 +1,6 @@
-discord
-beautifulsoup4
-requests
+discord.py==1.4.1
+bs4==0.0.1
+beautifulsoup4==4.9.1
+lxml==4.5.2
+requests==2.22.0
+requests-unixsocket==0.2.0
