@@ -1,2 +1,3 @@
 discord
 beautifulsoup4
+requests
