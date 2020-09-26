@@ -1,3 +1,5 @@
+from bs4 import BeautifulSoup
+import requests
 import discord
 import random
 import time
