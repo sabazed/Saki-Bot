@@ -51,7 +51,8 @@ async def help(ctx):
         s/gayrate [member] - Rates how much gay the user is
         s/simprate [member] - Rates how much simpe the user is
         s/dicksize [member] - Measures the dick size of the user
-        s/ff - Generates a random fact'''
+        s/ff - Generates a random fact
+        s/meme [sub] - generates a random meme from subreddit (default sub is r/memes)'''
     )
     await ctx.send(embed=embed)
 
