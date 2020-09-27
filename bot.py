@@ -52,7 +52,8 @@ async def help(ctx):
         s/simprate [member] - Rates how much simpe the user is
         s/dicksize [member] - Measures the dick size of the user
         s/ff - Generates a random fact
-        s/meme [sub] - generates random reddit meme (default sub is r/memes)'''
+        s/meme - generates random reddit meme
+        s/catto - generates random cat picture'''
     )
     await ctx.send(embed=embed)
 
