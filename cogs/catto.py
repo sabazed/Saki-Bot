@@ -25,15 +25,15 @@ class Fun(commands.Cog):
         subreddit = reddit.subreddit('cats')
         submissions = subreddit.hot(limit=50)
 
-        memes = []
+        cats = []
 
         for submission in submissions:
-            memes.append(submission)
+            cats.append(submission)
         
-        meme = random.choice(memes)
+        cat = random.choice(cats)
 
-        name = meme.title
-        url = meme.url
+        name = cat.title
+        url = cat.url
             
         embed = discord.Embed(title=name)
         embed.set_image(url=url)
