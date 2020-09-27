@@ -1,6 +1,7 @@
 import discord
 import os
 import random
+
 from discord.ext import commands, tasks
 
 client = commands.Bot(command_prefix='s/')
@@ -24,6 +25,15 @@ async def change_status():
 async def load(ctx, extension):
     client.load_extension(f'cogs.{extension}')
 
+@client.command()
+@commands.has_permissions(administrator=True)
+async def clear(ctx, amount=1):
+    await ctx.channel.purge(limit=amount)
+
+@client.command()
+@commands.has_permissions(administrator=True)
+async def ping(ctx):
+    await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
 
 @client.command()
 async def unload(ctx, extension):
@@ -34,7 +44,14 @@ async def unload(ctx, extension):
 async def help(ctx):
     embed = discord.Embed(
         title='**SakiMeister Help Board**',
-        description='**User Commands:**\ns/mine [size] - generates a minesweeper board, default size 8x8\ns/rps - Play \'Rock Paper Scissors\' against the bot\ns/random [X][Y] - Generate a random number between X and Y\n s/gayrate [member] - Rates how much gay the user is\ns/simprate [member] - Rates how much simp the user is\ns/dicksize [member] - Measures the dick size of the user\ns/ttt [member] - Tic Tac Toe game against a member\ns/ff - Generates a random fact'
+        description='''**User Commands:**
+        s/mine [size] - generates a minesweeper board, default size 8x8
+        s/rps - Play 'Rock Paper Scissors' against the bot
+        s/random [X][Y] - Generate a random number between X and Y
+        s/gayrate [member] - Rates how much gay the user is
+        s/simprate [member] - Rates how much simpe the user is
+        s/dicksize [member] - Measures the dick size of the user
+        s/ff - Generates a random fact'''
     )
     await ctx.send(embed=embed)
 
