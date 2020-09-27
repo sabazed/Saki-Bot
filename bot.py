@@ -45,18 +45,20 @@ async def help(ctx):
     embed = discord.Embed(
         title='**SakiMeister Help Board**',
         description='''**User Commands:**
-        s/mine [size] - generates a minesweeper board, default size 8x8
+        s/mine [size] - Generates a minesweeper board, default size 8x8
         s/rps - Play 'Rock Paper Scissors' against the bot
         s/random [X][Y] - Generate a random number between X and Y
         s/gayrate [member] - Rates how much gay the user is
         s/simprate [member] - Rates how much simpe the user is
         s/dicksize [member] - Measures the dick size of the user
-        s/ff - Generates a random fact
-        s/meme - generates random reddit meme
-        s/catto - generates random cat picture'''
+        s/ff - Generates random fact
+        s/meme - Generates random reddit meme
+        s/catto - Generates random cat picture
+        s/joke - Generates random joke
+        s/jk - Generates a random reddit joke
+        s/slots - Spins a 3-reel slot machine'''
     )
     await ctx.send(embed=embed)
-
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
