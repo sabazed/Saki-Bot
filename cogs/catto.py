@@ -21,19 +21,19 @@ class Fun(commands.Cog):
                         username=os.environ['username'],
                         password=os.environ['password'],
                         user_agent='redditmeme.py')
-        
-        subreddit = reddit.subreddit('cats')
+        subchoice = random.choice(['cats', 'CatGifs'])
+        subreddit = reddit.subreddit(subchoice)
         submissions = subreddit.hot(limit=50)
 
-        cats = []
+        memes = []
 
         for submission in submissions:
-            cats.append(submission)
+            memes.append(submission)
         
-        cat = random.choice(cats)
+        meme = random.choice(memes)
 
-        name = cat.title
-        url = cat.url
+        name = meme.title
+        url = meme.url
             
         embed = discord.Embed(title=name)
         embed.set_image(url=url)
