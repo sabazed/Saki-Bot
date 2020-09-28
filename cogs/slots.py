@@ -224,6 +224,7 @@ class Fun(commands.Cog):
                                                 SET balance = $1,
                                                     daily = $2
                                                 WHERE id = $3""", balance, daily, str(ctx.author.id))
+                await ctx.send(f'You have recieved a bonus. Come back in 8 hours for another! :hourglass:')
             else:
                 timeleft = content[inx][2] - daily
                 hours = timeleft.seconds // 3600
