@@ -40,9 +40,9 @@ class Fun(commands.Cog):
 
         await ctx.send(embed=embed)
         
-    @hot.error
-    async def hoterror(self, ctx, error):
-        await ctx.send('Can\'t generate a picture.')
+#     @hot.error
+#     async def hoterror(self, ctx, error):
+#         await ctx.send('Can\'t generate a picture.')
 
 def setup(client):
     client.add_cog(Fun(client))
