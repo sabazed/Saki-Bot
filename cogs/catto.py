@@ -19,7 +19,7 @@ class Fun(commands.Cog):
         reddit = praw.Reddit(client_id=os.environ['client_id'],
                         client_secret=os.environ['client_secret'],
                         username=os.environ['username'],
-                        password=os.environ['password'],
+                        password=os.environ['redditpass'],
                         user_agent='redditmeme.py')
         subchoice = random.choice(['cats', 'CatGifs'])
         subreddit = reddit.subreddit(subchoice)
