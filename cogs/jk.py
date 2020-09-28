@@ -33,10 +33,10 @@ class Fun(commands.Cog):
         joke = random.choice(jokes)
 
         name = joke.title
-        url = joke.url
+        text = joke.text
             
-        embed = discord.Embed(title=name)
-        embed.set_image(url=url)
+        embed = discord.Embed(title=name,
+        description=text)
 
         await ctx.send(embed=embed)
         
