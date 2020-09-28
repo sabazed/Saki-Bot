@@ -32,7 +32,6 @@ class Fun(commands.Cog):
                 await connection.execute("INSERT INTO data VALUES($1, $2, $3, $4)", str(ctx.author.id), 500, 0, daily)
         content = await connection.fetch('''SELECT * FROM data''')
         playerlist = [i[0] for i in content]
-        print(playerlist)
         inx = playerlist.index(f'{ctx.author.id}')
         id = content[inx][0]
         balance = int(content[inx][1])
@@ -164,7 +163,7 @@ class Fun(commands.Cog):
     async def balance(self, ctx, member: discord.Member = None):
         if member == None:
             member = ctx.author
-        await asyncpg.connect(database=os.environ['database'], host=os.environ['host'], user=os.environ['user'], password=os.environ['password'], port=os.environ['port'])
+        connection = await asyncpg.connect(database=os.environ['database'], host=os.environ['host'], user=os.environ['user'], password=os.environ['password'], port=os.environ['port'])
         content = await connection.fetch('''SELECT id, balance FROM data''')
         playerlist = [i[0] for i in content]
         if str(member.id) not in playerlist:
@@ -186,7 +185,7 @@ class Fun(commands.Cog):
     async def win(self, ctx, member: discord.Member = None):
         if member == None:
             member = ctx.author
-        await asyncpg.connect(database=os.environ['database'], host=os.environ['host'], user=os.environ['user'], password=os.environ['password'], port=os.environ['port'])
+        connection = await asyncpg.connect(database=os.environ['database'], host=os.environ['host'], user=os.environ['user'], password=os.environ['password'], port=os.environ['port'])
         content = await connection.fetch('''SELECT id, win FROM data''')
         playerlist = [i[0] for i in content]
         if str(member.id) not in playerlist:
@@ -206,7 +205,7 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def daily(self, ctx):
-        await asyncpg.connect(database=os.environ['database'], host=os.environ['host'], user=os.environ['user'], password=os.environ['password'], port=os.environ['port'])
+        connection = await asyncpg.connect(database=os.environ['database'], host=os.environ['host'], user=os.environ['user'], password=os.environ['password'], port=os.environ['port'])
         content = await connection.fetch('''SELECT id, balance, daily FROM data''')
         playerlist = [i[0] for i in content]
         if str(ctx.author.id) not in playerlist:
