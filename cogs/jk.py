@@ -33,7 +33,7 @@ class Fun(commands.Cog):
         joke = random.choice(jokes)
 
         name = joke.title
-        text = joke.text
+        text = joke.selftext
             
         embed = discord.Embed(title=name,
         description=text)
