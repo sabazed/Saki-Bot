@@ -1,7 +1,5 @@
 import discord
-import random
-import praw
-import os
+import requests
 
 from discord.ext import commands
 
@@ -16,26 +14,11 @@ class Fun(commands.Cog):
 
     @commands.command(aliases=['cat', 'neko'])
     async def catto(self, ctx):
-        reddit = praw.Reddit(client_id=os.environ['client_id'],
-                        client_secret=os.environ['client_secret'],
-                        username=os.environ['username'],
-                        password=os.environ['redditpass'],
-                        user_agent='redditmeme.py')
-        subchoice = random.choice(['cats', 'CatGifs'])
-        subreddit = reddit.subreddit(subchoice)
-        submissions = subreddit.hot(limit=50)
 
-        memes = []
-
-        for submission in submissions:
-            memes.append(submission)
-        
-        meme = random.choice(memes)
-
-        name = meme.title
-        url = meme.url
+        content = requests.get('http://aws.random.cat/meow').text
+        url = content[9:-2].replace('\\','')
             
-        embed = discord.Embed(title=name)
+        embed = discord.Embed(title='Meow')
         embed.set_image(url=url)
 
         await ctx.send(embed=embed)
