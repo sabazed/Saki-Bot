@@ -1,6 +1,7 @@
 import discord
 import os
 import random
+import datetime
 
 from discord.ext import commands, tasks
 
@@ -9,12 +10,25 @@ client.remove_command('help')
 status = ['h3ll0fr1end.wav', 'd3bug.mkv', 'da3m0ns.mp4', '3xpl0its.wmv', 'k3rnel-pan1c.ksd', 'logic-b0mb.hc',
           'm4ster-s1ave.aes', 'h4ndshake.sme', 'succ3ss0r.p12', 'init_5.fve', 'h1dden-pr0cess.axx', 'runtime-error.r00', 'shutdown -r']
 
-
 @client.event
 async def on_ready():
-    print('Bot is online')
+    starttime = str(datetime.datetime.now())
+    logchannel = await client.fetch_channel(int(os.environ['logchannelid']))
+    print(f'[{starttime[:starttime.index(".")]}] Bot is online')
+    await logchannel.send(f"=================================================\n[{starttime[:starttime.index('.')]}] Bot has started. [ONLINE]\n\n")
     change_status.start()
+    for filename in os.listdir('./cogs'):
+        if filename.endswith('.py'):
+            client.load_extension(f'cogs.{filename[:-3]}')
+            await logchannel.send(f'Loaded Cog: {filename[:-3]}')
+            print(f'Loaded Cog: {filename[:-3]}')
 
+@client.event
+async def on_command_error(ctx, error):
+    logchannel = await client.fetch_channel(int(os.environ['logchannelid']))
+    errortime = str(datetime.datetime.now())
+    print(f'[{errortime[:errortime.index(".")]}] {error}')
+    await logchannel.send(f'[{errortime[:errortime.index(".")]}] {error}')
 
 @tasks.loop(seconds=300)
 async def change_status():
@@ -59,9 +73,5 @@ async def help(ctx):
         s/slots - Spins a 3-reel slot machine'''
     )
     await ctx.send(embed=embed)
-
-for filename in os.listdir('./cogs'):
-    if filename.endswith('.py'):
-        client.load_extension(f'cogs.{filename[:-3]}')
 
 client.run(os.environ['token'])
