@@ -66,6 +66,7 @@ async def help(ctx):
         s/simprate [member] - Rates how much simpe the user is
         s/dicksize [member] - Measures the dick size of the user
         s/ff - Generates random fact
+        s/hot - Generate a hot SFW picture
         s/meme - Generates random reddit meme
         s/catto - Generates random cat picture
         s/joke - Generates random joke
