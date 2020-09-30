@@ -153,7 +153,9 @@ class Fun(commands.Cog):
 
     @slot.error
     async def sloterror(self, ctx, error):
-        if error in [ValueError, TypeError]:
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send('Enter a bet value to spin.')
+        elif isinstance(error, commands.errors.CommandInvokeError):
             await ctx.send('Enter a valid value!')
         else:
             await ctx.send('An error occoured, please contact server\'s administration.')
@@ -178,7 +180,7 @@ class Fun(commands.Cog):
 
     @balance.error
     async def balanceerror(self, ctx, error):
-        await ctx.send('An error occoured, please contact server\'s administration.')
+        await ctx.send('An error occoured, please try again later.')
         print(error)
 
     @commands.command(aliases=['topwin'])
@@ -200,7 +202,7 @@ class Fun(commands.Cog):
 
     @win.error
     async def winerror(self, ctx, error):
-        await ctx.send('An error occoured, please contact server\'s administration.')
+        await ctx.send('An error occoured, please try again later.')
         print(error)
 
     @commands.command()
@@ -234,7 +236,7 @@ class Fun(commands.Cog):
 
     @daily.error
     async def dailyerror(self, ctx, error):
-        await ctx.send('An error occoured, please contact server\'s administration.')
+        await ctx.send('An error occoured, please try again later.')
         print(error)
 
 def setup(client):
