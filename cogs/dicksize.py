@@ -31,6 +31,7 @@ class Fun(commands.Cog):
 ⠀ /  \\
 """.format(dick)))
         await ctx.send(embed=message)
+        await ctx.send('Nice cock bro! :eggplant:')
 
     @dsize.error
     async def dsizerror(self, ctx, error):
